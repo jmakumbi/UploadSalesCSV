@@ -1,0 +1,39 @@
+﻿@model IEnumerable<UploadSales.Models.File>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FileName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UploadDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Records)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FileName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UploadDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Records)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

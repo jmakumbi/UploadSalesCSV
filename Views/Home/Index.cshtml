@@ -1,0 +1,51 @@
+﻿@model IEnumerable<UploadSales.Models.Summary>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+    <div class="text-center">
+        <h1 class="display-4">Hello</h1>
+        <p><h2>This is a summary of the top 5 best performing items.</h2></p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ItemName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TotalProfits)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotalProfits)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <form method="post" title="Filter">
+            <table>
+                <tr>
+                    <td>From</td>
+                    <td><input type="date" name="FromDate" value="@ViewData["fdate"]"></td>
+                    <td>To</td>
+                    <td><input type="date" name="ToDate" value="@ViewData["tdate"]"></td>
+                    <td>
+                        <input type="submit" value="Filter" class="btn btn-default" />
+                    </td>
+                    <td>
+                        <a asp-action="Index">Back to Full List</a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
