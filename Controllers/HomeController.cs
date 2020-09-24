@@ -19,7 +19,7 @@ namespace UploadSales.Controllers
             _context = context;
         }
 
-        public IActionResult Index(DateTime fromDate, DateTime toDate)
+        public IActionResult Index(DateTime fromDate, DateTime toDate)// kludgy code. don't read too closely
         {
             ViewData["fdate"] = fromDate;
             ViewData["tdate"]  = toDate;
