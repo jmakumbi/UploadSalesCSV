@@ -43,10 +43,8 @@
 ## Future (not in order of priority)
 - [ ] **Add unit tests**
 - [ ] Switch from [FileHelpers Library](https://www.filehelpers.net/)
-- [ ] Implement tracking of uploaded files to prevent duplicate upload
 - [ ] Move data upload to files view and controller
 - [ ] Implement file upload by dialog instead of hardcoded path
-- [ ] Check for empty fields
 - [ ] Fix the currency columns to display correctly
 - [ ] Implement a [CSS framework](https://www.wikiwand.com/en/CSS_framework) like [Bootstrap)](https://getbootstrap.com/), [Tailwind](https://tailwindcss.com/), or [Semantic UI](https://semantic-ui.com/)
 - [ ] Implement full CRUD
@@ -61,6 +59,6 @@ IC5OZXQgQ29yZSwgTVZDLCBGaWxlSGVscGVyJ1xuZGF0ZTogJz
 IwMjAtMDktMjQnXG5leHRlbnNpb25zOlxuICBwcmVzZXQ6IGdm
 bVxuZmVhdHVyZWRJbWFnZTogJ2h0dHBzOi8vZHJpdmUuZ29vZ2
 xlLmNvbS9vcGVuP2lkPTF5dlBVWjZRcVRmSFY0SXZVSVh0Rzhx
-VGN5TG9kQkdXOSdcbiIsImhpc3RvcnkiOlsxMTU1Nzc0NjEwLD
-ExNjQ5NTUxNzRdfQ==
+VGN5TG9kQkdXOSdcbiIsImhpc3RvcnkiOlstOTAzMjA5MTQ2XX
+0=
 -->
