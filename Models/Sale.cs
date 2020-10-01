@@ -16,6 +16,7 @@ namespace UploadSales.Models
         public double TotalCost { get; set; }
         public double TotalRevenue { get; set; }
         public double TotalProfit { get; set; }
+        public string OrderId { get; set; }
 
     }
 }

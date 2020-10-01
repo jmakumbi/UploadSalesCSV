@@ -27,35 +27,49 @@ namespace UploadSales.Controllers
         public async Task<IActionResult> Create()
         {
             var MySettings = new DirectoryInfo(@"C:\uploads\"); //code smell shouldn't hardcode this but I am in a hurry
-            var MyFiles = MySettings.GetFiles();
-
-            //find each file
-            foreach(FileInfo fi in MyFiles.AsEnumerable<FileInfo>()) //forgot to check for duplicate data
+            if (Directory.Exists(MySettings.FullName))//confirm directory exists
             {
-                var S = GetSales(fi);
-                //find each data row
-                foreach(var r in S.AsEnumerable<SalesDataImporter>())
+                var MyFiles = MySettings.GetFiles();
+                var OrderColl = _context.Sales.ToList<Sale>();
+
+                //find each file
+                foreach(FileInfo fi in MyFiles.AsEnumerable<FileInfo>()) 
                 {
-                    Sale NewSale = new Sale();
-                    NewSale.Id = Guid.NewGuid();
-                    NewSale.ItemType = r.ItemType;
-                    NewSale.OrderDate = DateTime.ParseExact(r.OrderDate, "m/d/yyyy", null);
-                    NewSale.OrderPriority = r.OrderPriority;
-                    NewSale.TotalCost = r.TotalCost;
-                    NewSale.TotalRevenue = r.TotalRevenue;
-                    NewSale.UnitPrice = r.UnitPrice;
-                    NewSale.UnitsSold = r.UnitsSold;
-                    NewSale.TotalProfit = r.TotalProfit;
-                    _context.Add<Sale>(NewSale);
+                    if(Path.GetExtension(fi.FullName) == ".csv")//Confrim that this is csv
+                    {
+                        var S = GetSales(fi);
+                        //find each data row
+                        foreach(var r in S.AsEnumerable<SalesDataImporter>())
+                        {
+                            var OrderCount = (from o in OrderColl.AsEnumerable<Sale>()
+                                where o.OrderId == r.OrderId
+                                select o).Count<Sale>(); //check if order already exists
+                            if (OrderCount < 1)
+                            {
+                                Sale NewSale = new Sale();
+                                NewSale.Id = Guid.NewGuid();
+                                NewSale.ItemType = r.ItemType;
+                                NewSale.OrderDate = DateTime.ParseExact(r.OrderDate, "m/d/yyyy", null);
+                                NewSale.OrderPriority = r.OrderPriority;
+                                NewSale.TotalCost = r.TotalCost;
+                                NewSale.TotalRevenue = r.TotalRevenue;
+                                NewSale.UnitPrice = r.UnitPrice;
+                                NewSale.UnitsSold = r.UnitsSold;
+                                NewSale.TotalProfit = r.TotalProfit;
+                                NewSale.OrderId = r.OrderId;
+                                _context.Add<Sale>(NewSale);
+                            }
+                        }
+                        await _context.SaveChangesAsync();
+                    }
                 }
-                await _context.SaveChangesAsync();
             }
 
             return RedirectToAction(nameof(Index));
         }
 
         //Get the records from the file in uploads folder
-        private static SalesDataImporter[] GetSales(FileInfo f)
+        public static SalesDataImporter[] GetSales(FileInfo f)
         {
             var engine = new FileHelperEngine<SalesDataImporter>();
             var l = engine.ReadFile(f.FullName);
